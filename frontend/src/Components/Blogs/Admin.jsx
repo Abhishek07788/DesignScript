@@ -6,6 +6,7 @@ import {
   Box,
   Textarea,
   useToast,
+  Checkbox,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -25,6 +26,7 @@ const initialState = {
 const Admin = () => {
   const { loginData } = useSelector((store) => store.User);
   const [form, setForm] = useState(initialState);
+  const [category, setCategory] = useState([]);
   const [userData, setUserData] = useState({});
   const dispatch = useDispatch();
   const toast = useToast();
@@ -37,32 +39,51 @@ const Admin = () => {
   }, [loginData]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { type, checked, name, value } = e.target;
+    if (type === "checkbox") {
+      if (checked) {
+        setCategory([...category, value]);
+      } else {
+        setCategory(category.filter((el) => el !== value));
+      }
+    }
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      add_blogs_api_call({
-        ...form,
-        date: Date(),
-        userid: userData.id,
-        user: userData.id,
-      })
-    );
-    setTimeout(() => {
-      dispatch(get_blogs_api_call());
-    }, 500);
-    // ------------ Alert----------
-    toast({
-      title: "Blog Added👍",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-      position: "top",
-    });
-    e.target.reset();
+    if (category.length === 0) {
+      // ------------ Alert----------
+      toast({
+        title: "Please Check At least one checkBox!!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    } else {
+      dispatch(
+        add_blogs_api_call({
+          ...form,
+          date: Date(),
+          userid: userData.id,
+          user: userData.id,
+          category: category,
+        })
+      );
+      setTimeout(() => {
+        dispatch(get_blogs_api_call());
+      }, 500);
+      // ------------ Alert----------
+      toast({
+        title: "Blog Added👍",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      e.target.reset();
+    }
   };
 
   return (
@@ -71,7 +92,7 @@ const Admin = () => {
         Admin Panel
       </Heading>
       <Box
-        w="50%"
+        w="60%"
         m="auto"
         mt="4"
         textAlign="left"
@@ -107,6 +128,49 @@ const Admin = () => {
             required
             borderBottom="1px"
           />
+          <Box mt="5" display="flex" gap={3} alignItems="center">
+            <Text fontWeight={500}>Category:</Text>
+            <Checkbox
+              type="checkbox"
+              borderColor="grey"
+              value="Marketing"
+              onChange={handleChange}
+            >
+              Marketing
+            </Checkbox>
+            <Checkbox
+              type="checkbox"
+              borderColor="grey"
+              value="Sales"
+              onChange={handleChange}
+            >
+              Sales:
+            </Checkbox>
+            <Checkbox
+              type="checkbox"
+              borderColor="grey"
+              value="Lead Generation"
+              onChange={handleChange}
+            >
+              Lead Generation
+            </Checkbox>
+            <Checkbox
+              type="checkbox"
+              borderColor="grey"
+              value="Sales Tips"
+              onChange={handleChange}
+            >
+              Sales Tips:
+            </Checkbox>
+            <Checkbox
+              type="checkbox"
+              borderColor="grey"
+              value="Sales Book Summary"
+              onChange={handleChange}
+            >
+              Sales Book Summary:
+            </Checkbox>
+          </Box>
 
           <Text mt="3" fontWeight={500}>
             Description*

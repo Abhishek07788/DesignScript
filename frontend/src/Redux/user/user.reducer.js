@@ -11,32 +11,42 @@ const initialState = {
   signupData: "",
   loginData: JSON.parse(localStorage.getItem("loginData")) || "",
   loginDataFail: "",
-  loading: false,
+  userLoading: false,
   error: false,
 };
 
 export const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case loading: {
-      return { ...state, loading: true, error: false };
+      return { ...state, userLoading: true, error: false };
     }
 
     case failed: {
-      return { ...state, loading: false, error: true };
+      return { ...state, userLoading: false, error: true };
     }
 
     case signup_success: {
-      return { ...state, loading: false, error: false, signupData: payload };
+      return {
+        ...state,
+        userLoading: false,
+        error: false,
+        signupData: payload,
+      };
     }
 
     case login_success: {
       if (payload.status === true) {
         localStorage.setItem("loginData", JSON.stringify(payload));
-        return { ...state, loading: false, error: false, loginData: payload };
+        return {
+          ...state,
+          userLoading: false,
+          error: false,
+          loginData: payload,
+        };
       } else {
         return {
           ...state,
-          loading: false,
+          userLoading: false,
           error: false,
           loginDataFail: payload,
         };
@@ -46,7 +56,7 @@ export const userReducer = (state = initialState, { type, payload }) => {
     case clear: {
       return {
         ...state,
-        loading: false,
+        userLoading: false,
         error: false,
         signupData: "",
         loginData: "",
@@ -57,7 +67,7 @@ export const userReducer = (state = initialState, { type, payload }) => {
       localStorage.clear("loginData");
       return {
         ...state,
-        loading: false,
+        userLoading: false,
         error: false,
         loginData: "",
         signupData: "",

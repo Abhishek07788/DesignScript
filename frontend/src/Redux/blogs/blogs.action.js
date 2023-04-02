@@ -12,7 +12,6 @@ import axios from "axios";
 
 // ------------ (Add new blogs) ----------------
 export const add_blogs_api_call = (form) => async (dispatch) => {
-  console.log("form: ", form);
   dispatch({ type: loading });
   try {
     await axios.post("http://localhost:8080/blogs", form);
@@ -68,7 +67,7 @@ export const delete_blog_api_call = (id) => async (dispatch) => {
 
 // ------------ (update blogs) ----------------
 export const update_blogs_api_call = (id, cred) => async (dispatch) => {
-  console.log("id, cred: ", id, cred);
+  // console.log("id, cred: ", id, cred);
   dispatch({ type: loading });
   try {
     await axios.patch(`http://localhost:8080/blogs/update/${id}`, cred);

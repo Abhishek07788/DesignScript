@@ -11,6 +11,7 @@ const blogsSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   date: { type: String, required: true },
+  category: { type: Array, required: true },
 });
 
 const Blogs = mongoose.model("blogs", blogsSchema);

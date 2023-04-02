@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Image,
+  Progress,
   SimpleGrid,
   Text,
   useToast,
@@ -17,7 +18,8 @@ import jwt_decode from "jwt-decode";
 import { ClearFunc, logoutFunc } from "../Redux/user/user.action";
 
 const Navbar = () => {
-  const { loginData } = useSelector((store) => store.User);
+  const { loginData, userLoading } = useSelector((store) => store.User);
+  const { blogLoading } = useSelector((store) => store.Blogs);
   const [userData, setUserData] = useState({});
   const dispatch = useDispatch();
   const toast = useToast();
@@ -47,103 +49,121 @@ const Navbar = () => {
   };
 
   return (
-    <Box
-      className={style.maindiv}
-      pl={["2", "2", "10", "10"]}
-      pr={["2", "2", "10", "10"]}
-    >
-      <Link to="/">
-        <Image
-          w={["70px", "70px", "130px", "130px"]}
-          h={["30px", "30px", "50px", "50px"]}
-          src={Logo}
-          alt="Logo"
-        />
-      </Link>
-      <SimpleGrid
-        className={style.options}
-        columns={4}
-        gap={10}
-        display={["none", "none", "flex", "flex"]}
+    <>
+      <Box
+        className={style.maindiv}
+        pl={["2", "2", "10", "10"]}
+        pr={["2", "2", "10", "10"]}
       >
         <Link to="/">
-          <Button>Blogs</Button>
+          <Image
+            w={["70px", "70px", "130px", "130px"]}
+            h={["30px", "30px", "50px", "50px"]}
+            src={Logo}
+            alt="Logo"
+          />
         </Link>
-        {userData.role === "admin" ? (
-          <Link to="/admin">
-            <Button>Admin</Button>
+        <SimpleGrid
+          className={style.options}
+          columns={4}
+          gap={10}
+          display={["none", "none", "flex", "flex"]}
+        >
+          <Link to="/">
+            <Button>Blogs</Button>
           </Link>
-        ) : (
-          ""
-        )}
-
-        {/* ---------- (Conditional rendering) ------------*/}
-        {loginData ? (
-          <>
-            <Button>Hi: {userData.name}</Button>
-            <Button onClick={handleLogout}>Log out</Button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">
-              <Button>Log in</Button>
+          {userData.role === "admin" ? (
+            <Link to="/admin">
+              <Button>Admin</Button>
             </Link>
-            <Link to="/signup">
-              <Button>Sign up</Button>
-            </Link>
-          </>
-        )}
-      </SimpleGrid>
+          ) : (
+            ""
+          )}
 
-      <Box gap={3} display={["flex", "flex", "none", "none"]}>
-        <Link to="/">
-          <Text fontWeight={700}>
-            <u>Blogs</u>
-          </Text>
-        </Link>
-        {userData.role === "admin" ? (
-          <Link to="/admin">
+          {/* ---------- (Conditional rendering) ------------*/}
+          {loginData ? (
+            <>
+              <Button>Hi: {userData.name}</Button>
+              <Button onClick={handleLogout}>Log out</Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button>Log in</Button>
+              </Link>
+              <Link to="/signup">
+                <Button>Sign up</Button>
+              </Link>
+            </>
+          )}
+        </SimpleGrid>
+
+        <Box gap={3} display={["flex", "flex", "none", "none"]}>
+          <Link to="/">
             <Text fontWeight={700}>
-              <u>Admin</u>
+              <u>Blogs</u>
             </Text>
           </Link>
-        ) : (
-          ""
-        )}
-
-        {/* ---------- (Conditional rendering) ------------*/}
-        {loginData ? (
-          <>
-            <Text fontWeight={700}>
-              Hi: <span style={{ color: "red" }}>{userData.name}</span>
-            </Text>
-            <Text
-              fontWeight={700}
-              onClick={handleLogout}
-              cursor="pointer"
-              bg="#dc3544"
-              borderRadius={20}
-              color="#ffff"
-              pl="1"
-              pr="1"
-            >
-              Log out
-            </Text>
-          </>
-        ) : (
-          <>
-            <Link to="/login">
-              <Text bg="#dc3544" borderRadius={20} color="#ffff" pl="1" pr="1">
-                Log in
+          {userData.role === "admin" ? (
+            <Link to="/admin">
+              <Text fontWeight={700}>
+                <u>Admin</u>
               </Text>
             </Link>
-            <Link to="/signup">
-              <Text fontWeight={700}>Sign up</Text>
-            </Link>
-          </>
-        )}
+          ) : (
+            ""
+          )}
+
+          {/* ---------- (Conditional rendering) ------------*/}
+          {loginData ? (
+            <>
+              <Text fontWeight={700}>
+                Hi: <span style={{ color: "red" }}>{userData.name}</span>
+              </Text>
+              <Text
+                fontWeight={700}
+                onClick={handleLogout}
+                cursor="pointer"
+                bg="#dc3544"
+                borderRadius={20}
+                color="#ffff"
+                pl="1"
+                pr="1"
+              >
+                Log out
+              </Text>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Text
+                  bg="#dc3544"
+                  borderRadius={20}
+                  color="#ffff"
+                  pl="1"
+                  pr="1"
+                >
+                  Log in
+                </Text>
+              </Link>
+              <Link to="/signup">
+                <Text fontWeight={700}>Sign up</Text>
+              </Link>
+            </>
+          )}
+        </Box>
       </Box>
-    </Box>
+
+      <Progress
+        visibility={userLoading || blogLoading ? "visible" : "hidden"}
+        w="100%"
+        position="fixed"
+        mt={-5}
+        size="xs"
+        h="1"
+        isIndeterminate
+      />
+    </>
   );
 };
 

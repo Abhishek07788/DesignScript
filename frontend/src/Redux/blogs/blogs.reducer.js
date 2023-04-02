@@ -12,42 +12,47 @@ import {
 const initialState = {
   blogsData: [],
   blogsDetails: {},
-  loading: false,
+  blogLoading: false,
   error: false,
 };
 
 export const blogsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case loading: {
-      return { ...state, loading: true, error: false };
+      return { ...state, blogLoading: true, error: false };
     }
 
     case dataLoading: {
-      return { ...state, loading: false, error: false };
+      return { ...state, blogLoading: false, error: false };
     }
 
     case failed: {
-      return { ...state, loading: false, error: true };
+      return { ...state, blogLoading: false, error: true };
     }
 
     case blogs_get: {
-      return { ...state, loading: false, error: false, blogsData: payload };
+      return { ...state, blogLoading: false, error: false, blogsData: payload };
     }
 
     case blogs_getById: {
-      return { ...state, loading: false, error: false, blogsDetails: payload };
+      return {
+        ...state,
+        blogLoading: false,
+        error: false,
+        blogsDetails: payload,
+      };
     }
 
     case blogs_add: {
-      return { ...state, loading: false, error: false };
+      return { ...state, blogLoading: false, error: false };
     }
 
     case blogs_delete: {
-      return { ...state, loading: false, error: false };
+      return { ...state, blogLoading: false, error: false };
     }
 
     case blogs_update: {
-      return { ...state, loading: false, error: false };
+      return { ...state, blogLoading: false, error: false };
     }
 
     default:
