@@ -12,7 +12,7 @@ import axios from "axios";
 export const signup_api_call = (form) => async (dispatch) => {
   dispatch({ type: loading });
   try {
-    const res = await axios.post("http://localhost:8080/user/signup", {
+    const res = await axios.post("https://magnificent-pink-horse.cyclic.app/user/signup", {
       name: form.name,
       email: form.email,
       password: form.password,
@@ -28,7 +28,7 @@ export const signup_api_call = (form) => async (dispatch) => {
 export const login_api_call = (form) => async (dispatch) => {
   dispatch({ type: loading });
   try {
-    const res = await axios.post("http://localhost:8080/user/login", {
+    const res = await axios.post("https://magnificent-pink-horse.cyclic.app/user/login", {
       email: form.email,
       password: form.password,
     });

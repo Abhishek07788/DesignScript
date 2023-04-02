@@ -3,3 +3,29 @@
   margin: 0px;
   padding: 0px;
 }
+.chakra-ui-light {
+  background: #f2f2f2;
+}
+u {
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+  text-align: left;
+  border-radius: 10px;
+}
+
+table > thead > tr > th {
+  background: #333333;
+  border: 2px solid grey;
+  padding: 5px;
+  color: #ffffff;
+}
+
+table > tbody > tr > td {
+  border: 2px solid grey;
+  padding: 5px;
+  font-weight: 500;
+}

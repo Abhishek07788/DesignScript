@@ -7,10 +7,12 @@ import {
   blogs_getById,
   blogs_delete,
   blogs_update,
+  blogs_getByUserId,
 } from "./blogs.type";
 
 const initialState = {
   blogsData: [],
+  userBlogData: [],
   blogsDetails: {},
   blogLoading: false,
   error: false,
@@ -32,6 +34,15 @@ export const blogsReducer = (state = initialState, { type, payload }) => {
 
     case blogs_get: {
       return { ...state, blogLoading: false, error: false, blogsData: payload };
+    }
+
+    case blogs_getByUserId: {
+      return {
+        ...state,
+        blogLoading: false,
+        error: false,
+        userBlogData: payload,
+      };
     }
 
     case blogs_getById: {

@@ -1,4 +1,4 @@
-import { Button, Heading, Input, useToast } from "@chakra-ui/react";
+import { Button, Heading, Input, Text, useToast } from "@chakra-ui/react";
 import style from "./css.module.css";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -13,9 +13,10 @@ const initialState = {
 
 const Login = () => {
   const [form, setForm] = useState(initialState);
-  const { loginData, loading, error, loginDataFail } = useSelector(
+  const { loginData, userLoading, error, loginDataFail } = useSelector(
     (store) => store.User
   );
+  const [hide, setHide] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
@@ -81,10 +82,22 @@ const Login = () => {
           required
           bg="#ffff"
           placeholder="Password"
-          type="password"
+          type={hide ? "text" : "password"}
           minLength="8"
         />
-        <Button type="submit" isLoading={loading ? true : false}>
+        <Text
+          onClick={() => setHide(!hide)}
+          textAlign="left"
+          pl="2"
+          color="#ffff"
+        >
+          <u>{hide ? "Hide" : "Show"}</u>
+        </Text>
+        <Button
+          color="#ffffff"
+          type="submit"
+          isLoading={userLoading ? true : false}
+        >
           Log in
         </Button>
       </form>

@@ -5,32 +5,19 @@ import {
   Input,
   SimpleGrid,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import jwt_decode from "jwt-decode";
 import {
-  delete_blog_api_call,
   get_blogs_api_call,
   get_blogs_by_title_api_call,
 } from "../../Redux/blogs/blogs.action";
 import MapBlogs from "./MapBlogs";
 
 const DashBoard = () => {
-  const { loginData } = useSelector((store) => store.User);
   const { blogsData, error } = useSelector((store) => store.Blogs);
   const [query, setQuery] = useState("");
-  const [useData, setUserData] = useState({});
   const dispatch = useDispatch();
-  const toast = useToast();
-
-  // -------------- (Token Decode) ---------------
-  useEffect(() => {
-    if (loginData) {
-      setUserData(jwt_decode(loginData.token));
-    }
-  }, [loginData]);
 
   // -------------- (get blogs Data) -----------
   useEffect(() => {
@@ -52,22 +39,6 @@ const DashBoard = () => {
     }
   };
 
-  // // -------------- ( delete blogs ) -----------
-  // const handleDeleteBlogs = (id) => {
-  //   dispatch(delete_blog_api_call(id));
-  //   setTimeout(() => {
-  //     handleShowData();
-  //   }, 500);
-  //   // ------------ Alert----------
-  //   toast({
-  //     title: "Blog Deleted👍",
-  //     status: "success",
-  //     duration: 2000,
-  //     isClosable: true,
-  //     position: "top",
-  //   });
-  // };
-
   return (
     <div>
       {/* ---------Main Heading------ */}
@@ -78,7 +49,6 @@ const DashBoard = () => {
 
       {/* -------------- ( Api Error ) --------------- */}
       {error ? <Heading color="red">Server error...</Heading> : ""}
-
 
       {/*------ Search --------  */}
       <Box>
@@ -92,6 +62,7 @@ const DashBoard = () => {
           }}
         >
           <Input
+            bg="#ffff"
             type="search"
             onChange={(e) => setQuery(e.target.value)}
             borderColor="teal"

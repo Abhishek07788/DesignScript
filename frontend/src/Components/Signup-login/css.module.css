@@ -1,7 +1,7 @@
 .signup {
   width: 400px;
   margin: auto;
-  background-color: #e2e8f5;
+  background-color: #494b52de;
   padding: 20px;
   margin-top: 10%;
   border-radius: 10px;
@@ -11,6 +11,7 @@
 .signup > h1 {
   font-size: 25px;
   font-weight: bold;
+  color: #ffff;
 }
 .form > input {
   background-color: #ffff;

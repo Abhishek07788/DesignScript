@@ -22,7 +22,7 @@ app.post("/signup", async (req, res) => {
     if (oldUser) {
       return res.send({ status: false, message: "Email Already Exist!" });
     } else {
-      const user = await User.create({
+      await User.create({
         name: name,
         email: email,
         // password protect ------
@@ -47,7 +47,6 @@ app.post("/login", async (req, res) => {
       const loginPassword = decryptPass.toString(CryptoJS.enc.Utf8);
 
       if (password === loginPassword) {
-
         // --- jwt ------
         const token = jwt.sign(
           {
@@ -65,7 +64,6 @@ app.post("/login", async (req, res) => {
           status: true,
           message: "Log in Successfully!",
         });
-
       } else {
         return res.send({
           token: null,

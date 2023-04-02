@@ -4,26 +4,19 @@ import Login from "../Components/Signup-login/Login";
 import Signup from "../Components/Signup-login/Signup";
 import AuthRoute from "../Private/AuthRoute";
 import BlogsDetails from "../Components/Blogs/BlogsDetails";
-import Admin from "../Components/Blogs/Admin";
 import DashBoard from "../Components/Blogs/DashBoard";
+import UpdateBlog from "../Components/Admin/UpdateBlog";
 
 const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<DashBoard />} />
-      <Route
-        path="/details/:id"
-        element={
-          <AuthRoute>
-            <BlogsDetails />
-          </AuthRoute>
-        }
-      />
+      <Route path="/details/:id" element={<BlogsDetails />} />
       <Route
         path="/admin"
         element={
           <AuthRoute>
-            <Admin />
+            <UpdateBlog />
           </AuthRoute>
         }
       />

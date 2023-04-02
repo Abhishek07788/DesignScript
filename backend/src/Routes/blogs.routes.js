@@ -15,7 +15,7 @@ app.post("/", async (req, res) => {
 // ---------- (Get Blogs) -------------
 app.get("/", async (req, res) => {
   try {
-    const blogs = await Blogs.find().populate(["user"]);
+    const blogs = await Blogs.find().sort({ date: -1 }).populate(["user"]);
     res.send(blogs);
   } catch (e) {
     res.status(404).send(e);
@@ -50,7 +50,9 @@ app.get("/title/:findTitle", async (req, res) => {
 app.get("/user/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const blogs = await Blogs.find({ user_id: id }).populate(["user"]);
+    const blogs = await Blogs.find({ userid: id })
+      .sort({ date: -1 })
+      .populate(["user"]);
     res.send(blogs);
   } catch (e) {
     res.status(404).send(e);
@@ -69,31 +71,11 @@ app.delete("/:id", async (req, res) => {
 });
 
 // ---------- (Update Blogs) -------------
-app.patch("/update/:id", async (req, res) => {
+app.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { image, title, description } = req.body;
-
   try {
-    // -------------- (Thumbnail) ---------
-    if (image) {
-      await Blogs.updateOne({ _id: id }, { $set: { image: image } });
-      return res.send("newThumbnail updated");
-    }
-
-    // -------------- (Thumbnail) ---------
-    if (title) {
-      await Blogs.updateOne({ _id: id }, { $set: { title: title } });
-      return res.send("newTitle updated");
-    }
-
-    // -------------- (description) ---------
-    if (description) {
-      await Blogs.updateOne(
-        { _id: id },
-        { $set: { description: description } }
-      );
-      return res.send("newDescription updated");
-    }
+    await Blogs.updateOne({ _id: id }, { $set: req.body });
+    res.send("blog updated!!");
   } catch (e) {
     res.status(404).send(e);
   }

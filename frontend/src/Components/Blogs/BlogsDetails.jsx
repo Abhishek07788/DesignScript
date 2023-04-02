@@ -1,15 +1,13 @@
 import { Box, Heading, Image, SimpleGrid, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiOutlineBars, AiTwotoneCalendar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import jwt_decode from "jwt-decode";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   get_blogs_api_call,
   get_blogs_by_id_api_call,
 } from "../../Redux/blogs/blogs.action";
-import ModalForEdit from "./Modal";
 import MapBlogs from "./MapBlogs";
 import Comment from "../comments/Comment";
 
@@ -18,19 +16,8 @@ const BlogsDetails = () => {
   const { blogsDetails, blogsData, error } = useSelector(
     (store) => store.Blogs
   );
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editData, setEditData] = useState({});
-  const [useData, setUserData] = useState({});
-  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-
-  // -------------- (Token Decode) ---------------
-  useEffect(() => {
-    if (loginData) {
-      setUserData(jwt_decode(loginData.token));
-    }
-  }, [loginData]);
 
   // -------------- (get blogs Details) -----------
   useEffect(() => {
@@ -46,12 +33,6 @@ const BlogsDetails = () => {
   // ------------ ( show blogs Details ) ---------
   const handleShowData = () => {
     dispatch(get_blogs_by_id_api_call(id));
-  };
-
-  // ------------- ( update blogs with modal ) -------------
-  const handleUpdate = (id, name) => {
-    setIsModalVisible(true);
-    setEditData({ id, name });
   };
 
   return (
@@ -131,18 +112,11 @@ const BlogsDetails = () => {
         </Text>
       </div>
 
-      {/* ----------------- (Modal) ---------- */}
-      <ModalForEdit
-        isOpen={isModalVisible}
-        setIsOpen={setIsModalVisible}
-        editData={editData}
-        handleShowData={handleShowData}
-      />
       {/*--------- Comments Part ----------*/}
       <Heading textAlign="left" fontSize={25} mt="20" color="#057bff">
-        Leave a Comment..
+        {loginData ? "Leave a Comment.." : "Please Log in to add comment.."}
       </Heading>
-      <Comment blog_id={blogsDetails?._id} />
+      <Comment />
 
       {/* --------- Bottom Part ------ */}
       <Box mt="28">

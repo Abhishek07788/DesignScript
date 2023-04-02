@@ -20,6 +20,7 @@ import { ClearFunc, logoutFunc } from "../Redux/user/user.action";
 const Navbar = () => {
   const { loginData, userLoading } = useSelector((store) => store.User);
   const { blogLoading } = useSelector((store) => store.Blogs);
+  const { commentLoading } = useSelector((store) => store.Comments);
   const [userData, setUserData] = useState({});
   const dispatch = useDispatch();
   const toast = useToast();
@@ -154,13 +155,16 @@ const Navbar = () => {
         </Box>
       </Box>
 
+      {/* ---------- Loading Indicator --------- */}
       <Progress
-        visibility={userLoading || blogLoading ? "visible" : "hidden"}
+        visibility={
+          blogLoading || userLoading || commentLoading ? "visible" : "hidden"
+        }
         w="100%"
         position="fixed"
         mt={-5}
         size="xs"
-        h="1"
+        h="2"
         isIndeterminate
       />
     </>
