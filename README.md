@@ -5,6 +5,13 @@
 ### Frontend GiHub Link: https://github.com/Abhishek07788/DesignScript
 ### Backend GiHub Link: https://github.com/Abhishek07788/DesignScript-backend
 
+#### Admin:
+Admin can Add new blog, Update Blogs and delete Blogs. 
+#### User:
+User can see blogs, read blogs, Add their comment on each blog and delete his/her comments.
+### If not registered:
+If anyone how is not registered on this app then he/she can only see comments and blogs.
+
 ## Features & Pages:
 1. Sign up
 2. Log in
@@ -41,3 +48,5 @@
 5. CryptoJS
 6. jwt-token
 7. nodemon
+
+
