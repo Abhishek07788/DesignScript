@@ -1,6 +1,5 @@
 import {
   loading,
-  dataLoading,
   failed,
   blogs_add,
   blogs_get,
@@ -22,10 +21,6 @@ export const blogsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case loading: {
       return { ...state, blogLoading: true, error: false };
-    }
-
-    case dataLoading: {
-      return { ...state, blogLoading: false, error: false };
     }
 
     case failed: {

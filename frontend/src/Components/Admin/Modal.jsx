@@ -2,7 +2,6 @@ import {
   Input,
   Button,
   Text,
-  Box,
   Textarea,
   useToast,
   Checkbox,
@@ -12,6 +11,7 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -60,7 +60,13 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(update_blogs_api_call(form._id, { ...form, category: category }));
+    let cat = [];
+    if (category.length === 0) {
+      cat = editData?.category;
+    } else {
+      cat = category;
+    }
+    dispatch(update_blogs_api_call(form._id, { ...form, category: cat }));
     // ------------ Alert----------
     toast({
       title: "Blog Updated👍",
@@ -74,6 +80,7 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
     }, 600);
 
     onClose();
+    setCategory([]);
   };
 
   const onClose = () => {
@@ -81,7 +88,7 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
   };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+      <Modal isOpen={isOpen} onClose={onClose} size={["md", "lg", "xl"]}>
         <ModalOverlay />
         <ModalContent bg="#131a28" color="#ffffff">
           <ModalHeader>Edit {editData.name}</ModalHeader>
@@ -97,9 +104,7 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
           >
             {/* --------------- (Form) ---------------- */}
             <form onSubmit={handleSubmit}>
-              <Text mt="3" fontWeight={500}>
-                Thumbnail*
-              </Text>
+              <Text fontWeight={500}>Thumbnail*</Text>
               <Input
                 color="black"
                 bg="#ffff"
@@ -123,12 +128,17 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
                 required
                 borderBottom="1px"
               />
-              <Box mt="5" display="flex" gap={3} alignItems="center">
-                <Text fontWeight={500}>Category:</Text>
+              <Text fontWeight={500} mt="4">
+                Category:
+              </Text>
+              <SimpleGrid
+                columns={[2, 2, 3, 3]}
+                spacing={2}
+                fontWeight={"bold"}
+              >
                 <Checkbox
                   color="black"
                   pl="2"
-                  pr="2"
                   bg="#ffff"
                   borderRadius={8}
                   type="checkbox"
@@ -141,7 +151,6 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
                 <Checkbox
                   color="black"
                   pl="2"
-                  pr="2"
                   bg="#ffff"
                   borderRadius={8}
                   type="checkbox"
@@ -154,7 +163,6 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
                 <Checkbox
                   color="black"
                   pl="2"
-                  pr="2"
                   bg="#ffff"
                   borderRadius={8}
                   type="checkbox"
@@ -164,48 +172,43 @@ const ModalForEdit = ({ isOpen, setIsOpen, editData }) => {
                 >
                   :Marketing
                 </Checkbox>
-              </Box>
-              <Checkbox
-                color="black"
-                ml="17%"
-                pl="2"
-                pr="2"
-                bg="#ffff"
-                borderRadius={8}
-                type="checkbox"
-                borderColor="grey"
-                value="Sales Tips"
-                onChange={handleChange}
-              >
-                :SalesTips
-              </Checkbox>
-              <Checkbox
-                color="black"
-                pl="2"
-                pr="2"
-                bg="#ffff"
-                borderRadius={8}
-                type="checkbox"
-                borderColor="grey"
-                value="Lead Generation"
-                onChange={handleChange}
-              >
-                :LeadGeneration
-              </Checkbox>
-              <Checkbox
-                color="black"
-                ml="17%"
-                pl="2"
-                pr="2"
-                bg="#ffff"
-                borderRadius={8}
-                type="checkbox"
-                borderColor="grey"
-                value="Education"
-                onChange={handleChange}
-              >
-                :Education
-              </Checkbox>
+                <Checkbox
+                  color="black"
+                  pl="2"
+                  bg="#ffff"
+                  borderRadius={8}
+                  type="checkbox"
+                  borderColor="grey"
+                  value="Sales Tips"
+                  onChange={handleChange}
+                >
+                  :SalesTips
+                </Checkbox>
+                <Checkbox
+                  color="black"
+                  pl="2"
+                  bg="#ffff"
+                  borderRadius={8}
+                  type="checkbox"
+                  borderColor="grey"
+                  value="Lead Generation"
+                  onChange={handleChange}
+                >
+                  :LeadGeneration
+                </Checkbox>
+                <Checkbox
+                  color="black"
+                  pl="2"
+                  bg="#ffff"
+                  borderRadius={8}
+                  type="checkbox"
+                  borderColor="grey"
+                  value="Education"
+                  onChange={handleChange}
+                >
+                  :Education
+                </Checkbox>
+              </SimpleGrid>
               <Text mt="3" fontWeight={500}>
                 Description*
               </Text>

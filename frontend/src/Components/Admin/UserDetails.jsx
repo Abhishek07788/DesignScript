@@ -41,7 +41,7 @@ const UserDetails = () => {
   };
 
   return (
-    <Grid w="70%" m="auto" mt="10">
+    <Grid w="70%" overflow={"auto"} m="auto" mt="10">
       <Heading
         fontSize={24}
         textAlign="left"

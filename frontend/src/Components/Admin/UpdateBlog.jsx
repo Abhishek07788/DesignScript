@@ -80,8 +80,10 @@ const UpdateBlog = () => {
         </Button>
       </Box>
       {/* ------------ Toggle ---- */}
-      {hide ? <AddNew setHide={setHide} /> : ""}
-      <UserDetails />
+      <Box>
+        {hide ? <AddNew setHide={setHide} /> : ""}
+        <UserDetails />
+      </Box>
 
       <Box
         w="70%"
@@ -111,7 +113,7 @@ const UpdateBlog = () => {
                     <Image
                       w="100px"
                       h="50px"
-                      ml="4"
+                      ml={[0, 0, 4, 4]}
                       src={el.image}
                       alt={el.title}
                     />

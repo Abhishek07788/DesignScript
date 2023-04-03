@@ -1,7 +1,6 @@
 import {
   loading,
   failed,
-  dataLoading,
   blogs_add,
   blogs_get,
   blogs_getById,
@@ -24,7 +23,7 @@ export const add_blogs_api_call = (form) => async (dispatch) => {
 
 // ------------ (get blogs) ----------------
 export const get_blogs_api_call = () => async (dispatch) => {
-  dispatch({ type: dataLoading });
+  dispatch({ type: loading });
   try {
     const res = await axios.get("https://magnificent-pink-horse.cyclic.app/blogs");
     dispatch({ type: blogs_get, payload: res.data });
@@ -57,7 +56,7 @@ export const get_blogs_by_user_id_api_call = (id) => async (dispatch) => {
 
 // ------------ (get blogs) ----------------
 export const get_blogs_by_title_api_call = (title) => async (dispatch) => {
-  dispatch({ type: dataLoading });
+  dispatch({ type: loading });
   try {
     const res = await axios.get(`https://magnificent-pink-horse.cyclic.app/blogs/title/${title}`);
     dispatch({ type: blogs_get, payload: res.data });

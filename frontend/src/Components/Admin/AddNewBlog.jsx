@@ -6,6 +6,7 @@ import {
   Textarea,
   useToast,
   Checkbox,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -102,9 +103,7 @@ const AddNewBlog = ({ setHide }) => {
     >
       {/* --------------- (Form) ---------------- */}
       <form onSubmit={handleSubmit}>
-        <Text mt="3" fontWeight={500}>
-          Thumbnail*
-        </Text>
+        <Text fontWeight={500}>Thumbnail*</Text>
         <Input
           bg="#ffff"
           name="image"
@@ -126,23 +125,25 @@ const AddNewBlog = ({ setHide }) => {
           required
           borderBottom="1px"
         />
-        <Box mt="5" display="flex" gap={3} alignItems="center">
-          <Text fontWeight={500}>Category:</Text>
+        <Text fontWeight={500} mt="4">
+          Category:
+        </Text>
+        <SimpleGrid columns={[2, 2, 3, 3]} spacing={2} fontWeight={"bold"}>
           <Checkbox
+            color="black"
             pl="2"
-            pr="2"
             bg="#ffff"
             borderRadius={8}
             type="checkbox"
             borderColor="grey"
-            value="Marketing"
+            value="Sales Book Summary"
             onChange={handleChange}
           >
-            :Marketing
+            :SalesSummary
           </Checkbox>
           <Checkbox
+            color="black"
             pl="2"
-            pr="2"
             bg="#ffff"
             borderRadius={8}
             type="checkbox"
@@ -153,32 +154,20 @@ const AddNewBlog = ({ setHide }) => {
             :Sales
           </Checkbox>
           <Checkbox
+            color="black"
             pl="2"
-            pr="2"
             bg="#ffff"
             borderRadius={8}
             type="checkbox"
             borderColor="grey"
-            value="Education"
+            value="Marketing"
             onChange={handleChange}
           >
-            :Education
+            :Marketing
           </Checkbox>
           <Checkbox
+            color="black"
             pl="2"
-            pr="2"
-            bg="#ffff"
-            borderRadius={8}
-            type="checkbox"
-            borderColor="grey"
-            value="Lead Generation"
-            onChange={handleChange}
-          >
-            :Lead Generation
-          </Checkbox>
-          <Checkbox
-            pl="2"
-            pr="2"
             bg="#ffff"
             borderRadius={8}
             type="checkbox"
@@ -189,18 +178,30 @@ const AddNewBlog = ({ setHide }) => {
             :SalesTips
           </Checkbox>
           <Checkbox
+            color="black"
             pl="2"
-            pr="2"
             bg="#ffff"
             borderRadius={8}
             type="checkbox"
             borderColor="grey"
-            value="Sales Book Summary"
+            value="Lead Generation"
             onChange={handleChange}
           >
-            :SalesSummary
+            :LeadGeneration
           </Checkbox>
-        </Box>
+          <Checkbox
+            color="black"
+            pl="2"
+            bg="#ffff"
+            borderRadius={8}
+            type="checkbox"
+            borderColor="grey"
+            value="Education"
+            onChange={handleChange}
+          >
+            :Education
+          </Checkbox>
+        </SimpleGrid>
 
         <Text mt="3" fontWeight={500}>
           Description*

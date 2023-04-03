@@ -19,11 +19,17 @@ const MapBlogs = (props) => {
       }}
     >
       <Link to={`/details/${_id}`}>
-        <Image borderTopRadius={8} w="100%" h="100%" src={image} alt={title} />
+        <Image
+          borderTopRadius={8}
+          w="100%"
+          h={["150px", "160px", "210px", "210px"]}
+          src={image}
+          alt={title}
+        />
       </Link>
       <Box p="4">
         <Link to={`/details/${_id}`}>
-          <Heading fontSize={22} lineHeight={6}>
+          <Heading fontSize={[15, 16, 18, 22]} lineHeight={6}>
             {title.slice(0, 64)}..
           </Heading>
         </Link>
