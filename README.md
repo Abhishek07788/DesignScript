@@ -13,22 +13,7 @@ User can see blogs, read blogs, Add their comment on each blog and delete his/he
 If anyone how is not registered on this app then he/she can only see comments and blogs.
 
 ### Backend Routes
-user:
-"/user" => get, post, patch, delete
-"/user/signup"  => get
-"/user/login"  => get
-
-blogs:
-"/blogs" => get, post, patch, delete
-"/blogs/title/${title}"  => get
-"/blogs/user/${id}"  => get
-
-comments:
-"/comments" => get, post, patch, delete
-"/comments/blog/${id}"  => get
-"/comments/user/${id}"  => get
-"/comments/${id}"  => get
-
+![image](https://user-images.githubusercontent.com/104199818/229430813-07edc16d-0db5-4077-911f-3b92cdec27fe.png)
 
 ## Features & Pages:
 1. Sign up
