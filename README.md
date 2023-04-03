@@ -13,17 +13,17 @@ User can see blogs, read blogs, Add their comment on each blog and delete his/he
 If anyone how is not registered on this app then he/she can only see comments and blogs.
 
 ### Backend Routes
-#### user:
+user:
 "/user" => get, post, patch, delete
 "/user/signup"  => get
 "/user/login"  => get
 
-#### blogs:
+blogs:
 "/blogs" => get, post, patch, delete
 "/blogs/title/${title}"  => get
 "/blogs/user/${id}"  => get
 
-#### comments:
+comments:
 "/comments" => get, post, patch, delete
 "/comments/blog/${id}"  => get
 "/comments/user/${id}"  => get
